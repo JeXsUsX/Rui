@@ -23,44 +23,44 @@
             overflow: hidden;
             text-align: center;
             cursor: pointer;
-            animation: colorCycle 12s infinite alternate;
+            animation: colorCycle 15s infinite alternate;
             position: relative;
         }
 
         @keyframes colorCycle {
             0% { background-color: #050505; }
-            33% { background-color: #1a0a12; }
-            66% { background-color: #0a0a1a; }
-            100% { background-color: #050505; }
+            25% { background-color: #1a0510; }
+            50% { background-color: #0f0518; }
+            75% { background-color: #050f18; }
+            100% { background-color: #000000; }
         }
 
         /* --- Fondo de la Flor --- */
         #flower-container {
             position: absolute;
-            top: 45%;
+            top: 40%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 80vmin;
-            height: 80vmin;
+            width: 70vmin;
+            height: 70vmin;
             z-index: 0;
-            opacity: 0.6;
+            opacity: 0;
             pointer-events: none;
-            animation: heartbeat 2s ease-in-out infinite;
+            transition: opacity 0.8s ease;
         }
 
-        @keyframes heartbeat {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
-            50% { transform: translate(-50%, -50%) scale(1.03); opacity: 0.7; }
+        #flower-container.visible {
+            opacity: 0.5;
         }
 
         .flower-path {
             fill: none;
             stroke: #ff69b4;
-            stroke-width: 2.5;
+            stroke-width: 2;
             stroke-linecap: round;
             stroke-linejoin: round;
-            transition: stroke-dashoffset 0.8s ease-out;
-            filter: drop-shadow(0 0 10px rgba(255, 105, 180, 0.6));
+            transition: stroke-dashoffset 0.6s ease-out;
+            filter: drop-shadow(0 0 8px rgba(255, 105, 180, 0.4));
         }
 
         /* --- CÉSPED DE MINECRAFT --- */
@@ -69,17 +69,23 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 80px;
+            height: 60px;
             z-index: 1;
             pointer-events: none;
             overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        #minecraft-grass.visible {
+            opacity: 1;
         }
 
         .grass-block {
             position: absolute;
             bottom: 0;
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
             background: #5d8c47;
             border: 2px solid #4a7038;
             image-rendering: pixelated;
@@ -88,10 +94,10 @@
         .grass-block::before {
             content: '';
             position: absolute;
-            top: -10px;
+            top: -8px;
             left: -2px;
-            width: 40px;
-            height: 12px;
+            width: 30px;
+            height: 10px;
             background: #5d8c47;
             border: 2px solid #4a7038;
             border-bottom: none;
@@ -100,20 +106,20 @@
         .grass-block::after {
             content: '';
             position: absolute;
-            top: -8px;
+            top: -6px;
             left: 2px;
-            width: 4px;
-            height: 6px;
+            width: 3px;
+            height: 4px;
             background: #6ba848;
-            box-shadow: 8px 0 0 #6ba848, 16px 2px 0 #6ba848, 24px -1px 0 #6ba848, 32px 1px 0 #6ba848;
+            box-shadow: 6px 0 0 #6ba848, 12px 1px 0 #6ba848, 18px -1px 0 #6ba848, 24px 1px 0 #6ba848;
         }
 
         .snow-layer {
             position: absolute;
-            top: -12px;
+            top: -10px;
             left: -2px;
-            width: 40px;
-            height: 8px;
+            width: 30px;
+            height: 6px;
             background: #f0f0f0;
             border: 2px solid #e0e0e0;
             border-bottom: none;
@@ -122,50 +128,38 @@
         /* --- PARTÍCULAS DE CORAZÓN MINECRAFT --- */
         .mc-heart {
             position: absolute;
-            width: 16px;
-            height: 16px;
+            width: 12px;
+            height: 12px;
             background: #ff6b9d;
             image-rendering: pixelated;
             pointer-events: none;
-            animation: floatUp 4s linear infinite;
+            animation: floatUp 5s linear infinite;
             z-index: 2;
             clip-path: polygon(
                 20% 0%, 40% 0%, 50% 10%, 60% 0%, 80% 0%, 
                 100% 20%, 100% 40%, 50% 100%, 0% 40%, 0% 20%
             );
-            box-shadow: inset -2px -2px 0 rgba(0,0,0,0.2);
-        }
-
-        .mc-heart::before {
-            content: '';
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            width: 4px;
-            height: 4px;
-            background: rgba(255,255,255,0.4);
-            border-radius: 50%;
         }
 
         @keyframes floatUp {
-            0% { transform: translateY(0) scale(1); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+            0% { transform: translateY(0) scale(0.8); opacity: 0; }
+            15% { opacity: 0.8; }
+            85% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) scale(0.3); opacity: 0; }
         }
 
         /* --- CONFETI DE CORAZONES --- */
         .confetti-heart {
             position: absolute;
-            font-size: 24px;
-            animation: confettiFall 3s linear forwards;
+            font-size: 20px;
+            animation: confettiFall 3s ease-out forwards;
             z-index: 15;
             pointer-events: none;
         }
 
         @keyframes confettiFall {
-            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+            0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
         }
 
         /* --- Contenedor de Textos --- */
@@ -173,15 +167,15 @@
             z-index: 10;
             position: relative;
             padding: 20px;
-            max-width: 85%;
-            transition: all 0.5s ease;
+            max-width: 90%;
+            transition: all 0.3s ease;
         }
 
         h1 { 
             font-weight: 600; 
-            font-size: 1.8rem; 
-            text-shadow: 0 0 20px rgba(0,0,0,0.9), 0 0 40px rgba(255,105,180,0.3);
-            transition: all 0.3s ease;
+            font-size: 1.6rem; 
+            text-shadow: 0 0 15px rgba(0,0,0,0.9);
+            line-height: 1.4;
         }
 
         .glow-text {
@@ -189,132 +183,128 @@
         }
 
         @keyframes textGlow {
-            from { text-shadow: 0 0 20px rgba(0,0,0,0.9), 0 0 40px rgba(255,105,180,0.3); }
-            to { text-shadow: 0 0 30px rgba(0,0,0,0.9), 0 0 60px rgba(255,105,180,0.6), 0 0 80px rgba(255,105,180,0.4); }
+            from { text-shadow: 0 0 15px rgba(0,0,0,0.9), 0 0 30px rgba(255,105,180,0.2); }
+            to { text-shadow: 0 0 20px rgba(0,0,0,0.9), 0 0 50px rgba(255,105,180,0.5); }
         }
 
         /* Fuentes Especiales */
         .minecraft-font {
             font-family: 'Press Start 2P', cursive;
-            font-size: 0.9rem !important;
+            font-size: 0.75rem !important;
             color: #55ff55;
-            line-height: 1.8;
+            line-height: 1.6;
             text-shadow: 2px 2px 0 #2d5016;
         }
 
         .romantic-font {
             font-family: 'Great Vibes', cursive;
-            font-size: 2.8rem !important;
+            font-size: 2.2rem !important;
             color: #ff80ab;
-            text-shadow: 0 0 10px #ff4081, 0 0 20px #ff4081;
-            animation: romanticPulse 2s ease-in-out infinite;
+            text-shadow: 0 0 8px #ff4081;
+            display: inline-block;
+            animation: romanticPulse 3s ease-in-out infinite;
         }
 
         @keyframes romanticPulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.03); }
         }
 
         /* Texto chiquito de bolas rodantes */
         .bolas-text {
-            font-size: 0.7rem !important;
-            color: #aaa;
+            font-size: 0.65rem !important;
+            color: #999;
             font-style: italic;
-            margin-top: 10px;
-            opacity: 0.8;
+            margin-top: 15px;
+            opacity: 0.7;
             display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 0.7; transform: translateY(0); }
         }
 
         /* Efectos de texto */
         .big-text { display: inline-block; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .grow-1 { transform: scale(1.5); color: #ffeb3b; text-shadow: 0 0 30px #ffeb3b; }
-        .grow-2 { transform: scale(2.5); color: #ffc107; text-shadow: 0 0 40px #ffc107, 0 0 80px #ffc107; }
+        .grow-1 { transform: scale(1.3); color: #ffeb3b; text-shadow: 0 0 25px #ffeb3b; }
+        .grow-2 { transform: scale(2); color: #ffc107; text-shadow: 0 0 35px #ffc107, 0 0 60px #ffc107; }
 
         /* --- CONTADOR DE AÑOS --- */
         #counter-box {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0,0,0,0.9);
+            transform: translate(-50%, -50%) scale(0.9);
+            background: rgba(0,0,0,0.95);
             border: 3px solid #55ff55;
-            padding: 20px 30px;
-            border-radius: 10px;
+            padding: 25px 35px;
+            border-radius: 12px;
             z-index: 25;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.5s ease;
-            box-shadow: 0 0 30px rgba(85,255,85,0.3);
+            transition: all 0.4s ease;
+            box-shadow: 0 0 40px rgba(85,255,85,0.2);
         }
 
         #counter-box.show {
             opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
         }
 
         .counter-text {
             font-family: 'Press Start 2P', cursive;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             color: #55ff55;
             text-shadow: 2px 2px 0 #2d5016;
-            line-height: 2;
+            line-height: 1.8;
         }
 
         /* --- IMAGEN SORPRESA PRINCIPAL --- */
         #popup-img {
             position: absolute;
-            bottom: -300px;
+            bottom: -400px;
             left: 50%;
             transform: translateX(-50%);
-            width: 180px;
-            border-radius: 15px;
-            border: 4px solid #ffd700;
-            box-shadow: 0 0 30px rgba(255,215,0,0.6), 0 10px 40px rgba(0,0,0,0.5);
-            transition: bottom 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            width: 160px;
+            border-radius: 12px;
+            border: 3px solid #ffd700;
+            box-shadow: 0 0 25px rgba(255,215,0,0.5);
+            transition: bottom 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
             z-index: 20;
-            animation: photoGlow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes photoGlow {
-            from { box-shadow: 0 0 30px rgba(255,215,0,0.6), 0 10px 40px rgba(0,0,0,0.5); }
-            to { box-shadow: 0 0 50px rgba(255,215,0,0.9), 0 10px 40px rgba(0,0,0,0.5); }
+            opacity: 0;
         }
 
         #popup-img.show {
-            bottom: 100px;
+            bottom: 90px;
+            opacity: 1;
+            animation: photoPulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes photoPulse {
+            from { box-shadow: 0 0 25px rgba(255,215,0,0.5); }
+            to { box-shadow: 0 0 40px rgba(255,215,0,0.8); }
         }
 
         /* --- IMAGEN BOLAS RODANTES --- */
         #bolas-img {
             position: absolute;
             bottom: -200px;
-            right: 20px;
-            width: 120px;
-            border-radius: 10px;
-            border: 3px solid #ff6b6b;
-            box-shadow: 0 0 20px rgba(255,107,107,0.5);
-            transition: bottom 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            right: 15px;
+            width: 100px;
+            border-radius: 8px;
+            border: 2px solid #ff6b6b;
+            box-shadow: 0 0 15px rgba(255,107,107,0.4);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
             z-index: 20;
-            transform: rotate(5deg);
+            transform: rotate(3deg);
+            opacity: 0;
         }
 
         #bolas-img.show {
-            bottom: 100px;
-        }
-
-        .photo-shine {
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transform: skewX(-25deg);
-            animation: shine 3s infinite;
-        }
-
-        @keyframes shine {
-            0% { left: -100%; }
-            20%, 100% { left: 200%; }
+            bottom: 85px;
+            opacity: 1;
         }
 
         /* --- VIDEO FINAL --- */
@@ -329,40 +319,46 @@
             z-index: 100;
             justify-content: center;
             align-items: center;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        #video-container.show {
+            opacity: 1;
         }
 
         video {
-            max-width: 100%;
-            max-height: 100%;
-            border-radius: 10px;
+            max-width: 95%;
+            max-height: 95%;
+            border-radius: 8px;
         }
 
         /* Indicador */
         .tap-hint {
             position: absolute;
-            bottom: 90px;
-            font-size: 0.8rem;
-            opacity: 0.5;
+            bottom: 75px;
+            font-size: 0.75rem;
+            opacity: 0.4;
             animation: pulse 2s infinite;
             z-index: 5;
         }
 
-        @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+        @keyframes pulse { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.5; } }
 
         /* --- COPYRIGHT --- */
         .copyright {
             position: absolute;
-            bottom: 10px;
-            font-size: 0.7rem;
-            opacity: 0.4;
-            color: #888;
+            bottom: 8px;
+            font-size: 0.65rem;
+            opacity: 0.35;
+            color: #666;
             z-index: 5;
         }
 
         /* --- EFECTO DE ESCRITURA --- */
         .typing-text::after {
             content: '|';
-            animation: blink 1s infinite;
+            animation: blink 0.8s infinite;
         }
 
         @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
@@ -378,17 +374,17 @@
             opacity: 0;
             pointer-events: none;
             z-index: 50;
-            transition: opacity 0.3s;
+            transition: opacity 0.2s;
         }
 
-        /* --- MENSAJE MOTIVADOR ESPECIAL --- */
+        /* --- MENSAJE MOTIVADOR --- */
         .motivational-text {
             background: linear-gradient(45deg, #ff6b9d, #c44569, #ff6b9d);
             background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: gradientShift 3s ease infinite;
+            animation: gradientShift 4s ease infinite;
             font-weight: 600;
         }
 
@@ -403,17 +399,6 @@
 <body>
 
     <div class="flash" id="flash"></div>
-    <div id="particles"></div>
-
-    <!-- Contador de años (aparece temporalmente) -->
-    <div id="counter-box">
-        <div class="counter-text">
-            ⏰ Llevamos<br>
-            <span style="color: #ff6b9d; font-size: 1.2rem;">9 AÑOS</span><br>
-            siendo amigos<br>
-            <span style="font-size: 0.6rem; color: #888;">(si w yo veo el futuro)</span>
-        </div>
-    </div>
 
     <div id="flower-container">
         <svg viewBox="0 0 200 200" style="overflow:visible">
@@ -429,25 +414,24 @@
             <path class="flower-path" d="M100,100 Q130,70 140,100 Q120,120 100,100" />
             <path class="flower-path" d="M100,100 Q120,130 100,150 Q80,130 100,100" />
             <path class="flower-path" d="M100,100 Q70,120 60,100 Q70,80 100,100" />
-            <circle class="flower-path" cx="100" cy="100" r="15" fill="none" />
-            <circle class="flower-path" cx="100" cy="100" r="8" fill="none" />
-            <path class="flower-path" d="M100,150 Q100,180 100,200" />
-            <path class="flower-path" d="M100,180 Q70,170 60,190 Q80,200 100,180" />
-            <path class="flower-path" d="M100,190 Q130,180 140,200 Q120,210 100,190" />
+            <circle class="flower-path" cx="100" cy="100" r="12" fill="none" />
+            <circle class="flower-path" cx="100" cy="100" r="6" fill="none" />
         </svg>
     </div>
 
-    <!-- Césped de Minecraft -->
     <div id="minecraft-grass"></div>
 
-    <!-- Foto principal -->
-    <div style="position: relative; display: inline-block;">
-        <img id="popup-img" src="foto.jpg" alt="Sorpresa">
-        <div class="photo-shine"></div>
-    </div>
-
-    <!-- Foto bolas rodantes -->
+    <img id="popup-img" src="foto.jpg" alt="Sorpresa">
     <img id="bolas-img" src="bolas.jpg" alt="Bolas rodantes">
+
+    <div id="counter-box">
+        <div class="counter-text">
+            ⏰ Llevamos<br>
+            <span style="color: #ff6b9d; font-size: 1rem;">9 AÑOS</span><br>
+            siendo amigos<br>
+            <span style="font-size: 0.5rem; color: #888; display: block; margin-top: 5px;">(si w yo veo el futuro)</span>
+        </div>
+    </div>
 
     <div id="text-container">
         <h1 id="main-text">Tocame... la pantalla :v</h1>
@@ -458,58 +442,64 @@
     </div>
 
     <div class="tap-hint">(Toca la pantalla para continuar)</div>
-    
     <div class="copyright">Copyright Alcohólicos Anónimos</div>
 
     <script>
         // --- CONFIGURACIÓN DE PASOS ---
         const steps = [
-            { text: "HOLAAAAAAAAAA", size: "2rem", effect: "glow" },
-            { text: "Keloke t habla El papá de los helados 🍦", size: "1.8rem", action: "showCounter", sound: true },
-            { text: "<span class='minecraft-font'>Gracias por soportarme w 💔💔</span>", size: "1.5rem", action: "showImage", effect: "minecraft", vibrate: true },
-            { text: "Gracias por escucharme, por estar siempre ahí respondiendo cada mensaje aunque yo me pierda por dia y medio :'v", size: "1.2rem", action: "hideImage" },
-            { text: "Eres de las cosas más bonitas <br><span class='romantic-font'>pq alch si estás bien preciosa sabes?</span><br> que me ha pasado y de verdad t quiero mucho...", size: "1.5rem", effect: "romantic", action: "confetti" },
-            { text: "Mucho...", type: "grow1", size: "2rem", effect: "heartbeat", vibrate: true },
-            { text: "muchoooooooooo", type: "grow2", size: "3rem", effect: "heartbeat", vibrate: true },
-            { text: "<span class='motivational-text'>Vas a lograr todo lo que te propongas</span><br>pq se que puedes<br>pq eres una mujer muy fuerte y guerrera 💪<br><span style='font-size:0.8rem;opacity:0.7;'>(si yo fuera tenido el dolor de rodilla de ella por 2 semanas definitivamente pierdo la vida)</span>", size: "1.4rem", effect: "glow" },
-            { text: "Asi q ajá chamita :v<br><span class='bolas-text'>(igual t sigo cargando arrecherita por ganarme en las bolas rodantes 🥺)</span>", size: "1.8rem", action: "showBolas", vibrate: true },
-            { text: "FELIZ DIA DEL AMOOOR Y LA AMISTAAAAAAAAAAAD WAZAAAAAAAA👻👻👻👻", size: "2rem", action: "playVideo", effect: "typing", vibrate: true }
+            { text: "HOLAAAAAAAAAA", effect: "glow" },
+            { text: "Keloke t habla<br>El papá de los helados 🍦", action: "showCounter", sound: true },
+            { text: "<span class='minecraft-font'>Gracias por soportarme w 💔💔</span>", action: "showImage", effect: "minecraft", vibrate: true },
+            { text: "Gracias por escucharme, por estar siempre ahí<br>respondiendo cada mensaje aunque yo me pierda<br>por día y medio :'v", action: "hideImage" },
+            { text: "Eres de las cosas más bonitas que me ha pasado<br><span class='romantic-font'>pq alch si estás bien preciosa sabes?</span><br>y de verdad t quiero mucho...", effect: "romantic", action: "confetti" },
+            { text: "Mucho...", type: "grow1", effect: "heartbeat", vibrate: true },
+            { text: "muchoooooooooo", type: "grow2", effect: "heartbeat", vibrate: true },
+            { text: "<span class='motivational-text'>Vas a lograr todo lo que te propongas</span><br>pq sé que puedes<br>pq eres una mujer muy fuerte y guerrera 💪<br><span style='font-size:0.75rem;opacity:0.6;display:block;margin-top:10px;'>(si yo hubiera tenido el dolor de rodilla de ella<br>por 2 semanas, definitivamente pierdo la vida)</span>", effect: "glow" },
+            { text: "Así q ajá chamita :v<br><span class='bolas-text'>(igual t sigo cargando arrecherita por ganarme en las bolas rodantes 🥺)</span>", action: "showBolas", vibrate: true },
+            { text: "FELIZ DÍA DEL AMOOOR<br>Y LA AMISTAAAAAAAAAAAD<br>WAZAAAAAAAA 👻👻👻", effect: "typing", vibrate: true, action: "playVideo" }
         ];
 
         let currentStep = -1;
+        let started = false;
+        
         const textContainer = document.getElementById('main-text');
+        const flowerContainer = document.getElementById('flower-container');
         const flowerPaths = document.querySelectorAll('.flower-path');
         const popupImg = document.getElementById('popup-img');
         const bolasImg = document.getElementById('bolas-img');
         const videoContainer = document.getElementById('video-container');
         const finalVideo = document.getElementById('final-video');
         const counterBox = document.getElementById('counter-box');
+        const grassContainer = document.getElementById('minecraft-grass');
         const flash = document.getElementById('flash');
         
-        // --- AUDIO ---
         const bgMusic = new Audio('musica.mp3');
         bgMusic.loop = true;
-        bgMusic.volume = 0.3;
+        bgMusic.volume = 0.25;
 
-        const pathLengths = Array.from(flowerPaths).map(path => path.getTotalLength());
-        const totalLength = pathLengths.reduce((a, b) => a + b, 0);
+        const pathLengths = Array.from(flowerPaths).map(path => ({
+            element: path,
+            length: path.getTotalLength()
+        }));
+        const totalLength = pathLengths.reduce((a, b) => a + b.length, 0);
 
-        flowerPaths.forEach((path, index) => {
-            path.style.strokeDasharray = pathLengths[index];
-            path.style.strokeDashoffset = pathLengths[index];
+        // Inicializar flor oculta
+        pathLengths.forEach(({element, length}) => {
+            element.style.strokeDasharray = length;
+            element.style.strokeDashoffset = length;
         });
 
+        // Crear césped
         function createGrass() {
-            const grassContainer = document.getElementById('minecraft-grass');
-            const blockWidth = 40;
+            const blockWidth = 30;
             const numBlocks = Math.ceil(window.innerWidth / blockWidth) + 2;
             
             for (let i = 0; i < numBlocks; i++) {
                 const block = document.createElement('div');
                 block.className = 'grass-block';
-                block.style.left = (i * blockWidth - 20) + 'px';
-                const heightVar = Math.random() * 10;
-                block.style.height = (40 + heightVar) + 'px';
+                block.style.left = (i * blockWidth - 15) + 'px';
+                const heightVar = Math.random() * 8;
+                block.style.height = (30 + heightVar) + 'px';
                 
                 const snow = document.createElement('div');
                 snow.className = 'snow-layer';
@@ -521,19 +511,21 @@
         createGrass();
 
         function createMCHeart() {
+            if (document.hidden) return;
+            
             const heart = document.createElement('div');
             heart.className = 'mc-heart';
-            const x = Math.random() * window.innerWidth;
-            const duration = Math.random() * 3 + 3;
-            const size = Math.random() * 10 + 12;
+            const x = Math.random() * (window.innerWidth - 20);
+            const duration = Math.random() * 2 + 4;
+            const size = Math.random() * 6 + 10;
             
             heart.style.left = x + 'px';
-            heart.style.bottom = '80px';
+            heart.style.bottom = '60px';
             heart.style.width = size + 'px';
             heart.style.height = size + 'px';
             heart.style.animationDuration = duration + 's';
             
-            const colors = ['#ff6b9d', '#ff8fab', '#55ff55', '#7fff7f'];
+            const colors = ['#ff6b9d', '#ff8fab', '#55ff55', '#7fff7f', '#ff5555'];
             heart.style.background = colors[Math.floor(Math.random() * colors.length)];
             
             document.body.appendChild(heart);
@@ -541,80 +533,115 @@
         }
 
         function createConfetti() {
-            for (let i = 0; i < 30; i++) {
+            const colors = ['#ff6b9d', '#ffd700', '#55ff55', '#ff80ab', '#ffc107'];
+            for (let i = 0; i < 25; i++) {
                 setTimeout(() => {
                     const heart = document.createElement('div');
                     heart.className = 'confetti-heart';
-                    heart.innerHTML = ['❤️', '💖', '💕', '💗', '💝'][Math.floor(Math.random() * 5)];
+                    heart.innerHTML = ['❤️', '💖', '💕', '💗', '💝', '💓'][Math.floor(Math.random() * 6)];
                     heart.style.left = Math.random() * window.innerWidth + 'px';
-                    heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                    heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                    heart.style.animationDuration = (Math.random() * 1.5 + 2.5) + 's';
+                    heart.style.fontSize = (Math.random() * 15 + 18) + 'px';
+                    heart.style.color = colors[Math.floor(Math.random() * colors.length)];
                     document.body.appendChild(heart);
-                    setTimeout(() => heart.remove(), 4000);
-                }, i * 100);
+                    setTimeout(() => heart.remove(), 4500);
+                }, i * 80);
             }
         }
 
-        function triggerFlash() {
-            flash.style.opacity = '0.3';
-            setTimeout(() => flash.style.opacity = '0', 300);
+        function triggerFlash(intensity = 0.25) {
+            flash.style.opacity = intensity;
+            setTimeout(() => flash.style.opacity = '0', 200);
         }
 
-        function vibrate(pattern = 50) {
+        function vibrate(pattern) {
             if (navigator.vibrate) navigator.vibrate(pattern);
         }
 
-        function typeWriter(text, element, speed = 50) {
+        function typeWriter(text, element, speed = 60) {
             element.innerHTML = '';
             element.classList.add('typing-text');
             let i = 0;
+            const plainText = text.replace(/<[^>]*>/g, '');
             
             function type() {
-                if (i < text.length) {
-                    if (text.substring(i).startsWith('<')) {
-                        const endTag = text.indexOf('>', i);
-                        element.innerHTML += text.substring(i, endTag + 1);
-                        i = endTag + 1;
-                    } else {
-                        element.innerHTML += text.charAt(i);
-                        i++;
-                    }
+                if (i < plainText.length) {
+                    element.innerHTML = plainText.substring(0, i + 1) + '<span class="typing-text"></span>';
+                    i++;
                     setTimeout(type, speed);
                 } else {
+                    element.innerHTML = text;
                     element.classList.remove('typing-text');
                 }
             }
             type();
         }
 
-        document.body.addEventListener('click', () => {
-            if(videoContainer.style.display === 'flex') return;
-
-            currentStep++;
-
-            if (currentStep < steps.length) {
-                const step = steps[currentStep];
-
-                // Iniciar música
-                if (step.sound && bgMusic.paused) {
-                    bgMusic.play().catch(e => console.log('Audio blocked:', e));
+        function updateFlower(progress) {
+            const targetOffset = totalLength * (1 - progress);
+            let accumulated = 0;
+            
+            pathLengths.forEach(({element, length}) => {
+                const start = accumulated;
+                const end = accumulated + length;
+                
+                if (targetOffset <= start) {
+                    element.style.strokeDashoffset = 0;
+                } else if (targetOffset >= end) {
+                    element.style.strokeDashoffset = length;
+                } else {
+                    const partial = (targetOffset - start) / length;
+                    element.style.strokeDashoffset = length * (1 - partial);
                 }
+                accumulated += length;
+            });
+        }
 
-                // Vibración
-                if (step.vibrate) {
-                    if (step.type === 'grow2') {
-                        vibrate([100, 50, 100]); // Vibración doble fuerte
-                    } else {
-                        vibrate(60);
-                    }
-                }
-
-                if (step.action === 'playVideo') {
-                    updateText(step);
+        function showStep(index) {
+            if (index >= steps.length) return;
+            
+            const step = steps[index];
+            
+            // Audio solo en primer paso con música
+            if (step.sound && bgMusic.paused) {
+                bgMusic.play().catch(() => {});
+            }
+            
+            // Vibración
+            if (step.vibrate) {
+                const pattern = step.type === 'grow2' ? [80, 40, 80] : [50];
+                vibrate(pattern);
+            }
+            
+            // Acciones especiales
+            if (step.action === 'showCounter') {
+                counterBox.classList.add('show');
+                setTimeout(() => counterBox.classList.remove('show'), 2000);
+            }
+            
+            if (step.action === 'showImage') {
+                popupImg.classList.add('show');
+                triggerFlash(0.2);
+            } else if (step.action === 'hideImage') {
+                popupImg.classList.remove('show');
+            }
+            
+            if (step.action === 'showBolas') {
+                bolasImg.classList.add('show');
+                triggerFlash(0.15);
+            }
+            
+            if (step.action === 'confetti') {
+                setTimeout(createConfetti, 300);
+            }
+            
+            if (step.action === 'playVideo') {
+                setTimeout(() => {
+                    textContainer.style.opacity = 0;
                     setTimeout(() => {
                         document.getElementById('text-container').style.display = 'none';
-                        document.getElementById('flower-container').style.display = 'none';
-                        document.getElementById('minecraft-grass').style.display = 'none';
+                        flowerContainer.style.display = 'none';
+                        grassContainer.style.display = 'none';
                         popupImg.style.display = 'none';
                         bolasImg.style.display = 'none';
                         counterBox.style.display = 'none';
@@ -622,86 +649,67 @@
                         document.querySelector('.tap-hint').style.display = 'none';
                         
                         videoContainer.style.display = 'flex';
+                        setTimeout(() => videoContainer.classList.add('show'), 50);
                         finalVideo.play();
-                    }, 5000);
-                    return;
-                }
-
-                if (step.action === 'showCounter') {
-                    counterBox.classList.add('show');
-                    setTimeout(() => {
-                        counterBox.classList.remove('show');
-                    }, 2000);
-                }
-
-                if (step.action === 'showImage') {
-                    popupImg.classList.add('show');
-                    triggerFlash();
-                } else if (step.action === 'hideImage') {
-                    popupImg.classList.remove('show');
-                }
-
-                if (step.action === 'showBolas') {
-                    bolasImg.classList.add('show');
-                    triggerFlash();
-                }
-
-                if (step.action === 'confetti') {
-                    createConfetti();
-                }
-
-                updateText(step);
+                    }, 300);
+                }, 3500);
             }
-        });
-
-        function updateText(step) {
+            
+            // Actualizar texto
             textContainer.style.opacity = 0;
             
             setTimeout(() => {
+                textContainer.className = '';
                 if (step.effect === 'typing') {
-                    const tempDiv = document.createElement('div');
-                    tempDiv.innerHTML = step.text;
-                    typeWriter(tempDiv.textContent, textContainer, 80);
+                    typeWriter(step.text, textContainer, 70);
                 } else {
                     textContainer.innerHTML = step.text;
                 }
                 
-                textContainer.style.fontSize = step.size;
-                textContainer.style.opacity = 1;
-
-                textContainer.classList.remove('glow-text', 'big-text', 'grow-1', 'grow-2');
+                textContainer.style.fontSize = '1.6rem';
                 
+                // Aplicar clases de efecto
                 if (step.effect === 'glow') textContainer.classList.add('glow-text');
+                if (step.effect === 'minecraft') textContainer.classList.add('minecraft-font');
                 if (step.type === 'grow1') textContainer.classList.add('big-text', 'grow-1');
                 if (step.type === 'grow2') textContainer.classList.add('big-text', 'grow-2');
-
-                const progress = (currentStep + 1) / steps.length;
-                const targetOffset = totalLength * (1 - progress);
                 
-                let accumulatedLength = 0;
-                flowerPaths.forEach((path, index) => {
-                    const pathLength = pathLengths[index];
-                    const pathStart = accumulatedLength;
-                    const pathEnd = accumulatedLength + pathLength;
-                    
-                    if (targetOffset <= pathStart) {
-                        path.style.strokeDashoffset = 0;
-                    } else if (targetOffset >= pathEnd) {
-                        path.style.strokeDashoffset = pathLength;
-                    } else {
-                        const partialProgress = (targetOffset - pathStart) / pathLength;
-                        path.style.strokeDashoffset = pathLength * (1 - partialProgress);
-                    }
-                    
-                    accumulatedLength += pathLength;
-                });
-
-            }, 200);
+                textContainer.style.opacity = 1;
+                
+                // Actualizar flor
+                const progress = (index + 1) / steps.length;
+                updateFlower(progress);
+                
+                // Mostrar elementos visuales desde el primer paso real
+                if (index === 0) {
+                    flowerContainer.classList.add('visible');
+                    grassContainer.classList.add('visible');
+                }
+                
+            }, 250);
         }
 
-        setInterval(createMCHeart, 800);
+        // Click para avanzar
+        document.body.addEventListener('click', () => {
+            if (videoContainer.style.display === 'flex') return;
+            
+            if (!started) {
+                started = true;
+                currentStep = 0;
+                showStep(currentStep);
+            } else {
+                currentStep++;
+                if (currentStep < steps.length) {
+                    showStep(currentStep);
+                }
+            }
+        });
+
+        // Corazones de Minecraft
+        setInterval(createMCHeart, 1200);
 
     </script>
 </body>
 </html>
+
 
