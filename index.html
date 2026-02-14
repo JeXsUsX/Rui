@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para ti wazaaaa 👻</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #fff;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            text-align: center;
+            cursor: pointer;
+            animation: colorCycle 12s infinite alternate;
+            position: relative;
+        }
+
+        @keyframes colorCycle {
+            0% { background-color: #050505; }
+            33% { background-color: #1a0a12; }
+            66% { background-color: #0a0a1a; }
+            100% { background-color: #050505; }
+        }
+
+        /* --- Fondo de la Flor --- */
+        #flower-container {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80vmin;
+            height: 80vmin;
+            z-index: 0;
+            opacity: 0.6;
+            pointer-events: none;
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+            50% { transform: translate(-50%, -50%) scale(1.03); opacity: 0.7; }
+        }
+
+        .flower-path {
+            fill: none;
+            stroke: #ff69b4;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: stroke-dashoffset 0.8s ease-out;
+            filter: drop-shadow(0 0 10px rgba(255, 105, 180, 0.6));
+        }
+
+        /* --- CÉSPED DE MINECRAFT --- */
+        #minecraft-grass {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .grass-block {
+            position: absolute;
+            bottom: 0;
+            width: 40px;
+            height: 40px;
+            background: #5d8c47;
+            border: 2px solid #4a7038;
+            image-rendering: pixelated;
+        }
+
+        .grass-block::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -2px;
+            width: 40px;
+            height: 12px;
+            background: #5d8c47;
+            border: 2px solid #4a7038;
+            border-bottom: none;
+        }
+
+        .grass-block::after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 2px;
+            width: 4px;
+            height: 6px;
+            background: #6ba848;
+            box-shadow: 8px 0 0 #6ba848, 16px 2px 0 #6ba848, 24px -1px 0 #6ba848, 32px 1px 0 #6ba848;
+        }
+
+        .snow-layer {
+            position: absolute;
+            top: -12px;
+            left: -2px;
+            width: 40px;
+            height: 8px;
+            background: #f0f0f0;
+            border: 2px solid #e0e0e0;
+            border-bottom: none;
+        }
+
+        /* --- PARTÍCULAS DE CORAZÓN MINECRAFT --- */
+        .mc-heart {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: #ff6b9d;
+            image-rendering: pixelated;
+            pointer-events: none;
+            animation: floatUp 4s linear infinite;
+            z-index: 2;
+            clip-path: polygon(
+                20% 0%, 40% 0%, 50% 10%, 60% 0%, 80% 0%, 
+                100% 20%, 100% 40%, 50% 100%, 0% 40%, 0% 20%
+            );
+            box-shadow: inset -2px -2px 0 rgba(0,0,0,0.2);
+        }
+
+        .mc-heart::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 4px;
+            height: 4px;
+            background: rgba(255,255,255,0.4);
+            border-radius: 50%;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+        }
+
+        /* --- CONFETI DE CORAZONES --- */
+        .confetti-heart {
+            position: absolute;
+            font-size: 24px;
+            animation: confettiFall 3s linear forwards;
+            z-index: 15;
+            pointer-events: none;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* --- Contenedor de Textos --- */
+        #text-container {
+            z-index: 10;
+            position: relative;
+            padding: 20px;
+            max-width: 85%;
+            transition: all 0.5s ease;
+        }
+
+        h1 { 
+            font-weight: 600; 
+            font-size: 1.8rem; 
+            text-shadow: 0 0 20px rgba(0,0,0,0.9), 0 0 40px rgba(255,105,180,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .glow-text {
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            from { text-shadow: 0 0 20px rgba(0,0,0,0.9), 0 0 40px rgba(255,105,180,0.3); }
+            to { text-shadow: 0 0 30px rgba(0,0,0,0.9), 0 0 60px rgba(255,105,180,0.6), 0 0 80px rgba(255,105,180,0.4); }
+        }
+
+        /* Fuentes Especiales */
+        .minecraft-font {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.9rem !important;
+            color: #55ff55;
+            line-height: 1.8;
+            text-shadow: 2px 2px 0 #2d5016;
+        }
+
+        .romantic-font {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.8rem !important;
+            color: #ff80ab;
+            text-shadow: 0 0 10px #ff4081, 0 0 20px #ff4081;
+            animation: romanticPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes romanticPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Texto chiquito de bolas rodantes */
+        .bolas-text {
+            font-size: 0.7rem !important;
+            color: #aaa;
+            font-style: italic;
+            margin-top: 10px;
+            opacity: 0.8;
+            display: block;
+        }
+
+        /* Efectos de texto */
+        .big-text { display: inline-block; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .grow-1 { transform: scale(1.5); color: #ffeb3b; text-shadow: 0 0 30px #ffeb3b; }
+        .grow-2 { transform: scale(2.5); color: #ffc107; text-shadow: 0 0 40px #ffc107, 0 0 80px #ffc107; }
+
+        /* --- CONTADOR DE AÑOS --- */
+        #counter-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.9);
+            border: 3px solid #55ff55;
+            padding: 20px 30px;
+            border-radius: 10px;
+            z-index: 25;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            box-shadow: 0 0 30px rgba(85,255,85,0.3);
+        }
+
+        #counter-box.show {
+            opacity: 1;
+        }
+
+        .counter-text {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            color: #55ff55;
+            text-shadow: 2px 2px 0 #2d5016;
+            line-height: 2;
+        }
+
+        /* --- IMAGEN SORPRESA PRINCIPAL --- */
+        #popup-img {
+            position: absolute;
+            bottom: -300px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            border-radius: 15px;
+            border: 4px solid #ffd700;
+            box-shadow: 0 0 30px rgba(255,215,0,0.6), 0 10px 40px rgba(0,0,0,0.5);
+            transition: bottom 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 20;
+            animation: photoGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes photoGlow {
+            from { box-shadow: 0 0 30px rgba(255,215,0,0.6), 0 10px 40px rgba(0,0,0,0.5); }
+            to { box-shadow: 0 0 50px rgba(255,215,0,0.9), 0 10px 40px rgba(0,0,0,0.5); }
+        }
+
+        #popup-img.show {
+            bottom: 100px;
+        }
+
+        /* --- IMAGEN BOLAS RODANTES --- */
+        #bolas-img {
+            position: absolute;
+            bottom: -200px;
+            right: 20px;
+            width: 120px;
+            border-radius: 10px;
+            border: 3px solid #ff6b6b;
+            box-shadow: 0 0 20px rgba(255,107,107,0.5);
+            transition: bottom 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 20;
+            transform: rotate(5deg);
+        }
+
+        #bolas-img.show {
+            bottom: 100px;
+        }
+
+        .photo-shine {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transform: skewX(-25deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            20%, 100% { left: 200%; }
+        }
+
+        /* --- VIDEO FINAL --- */
+        #video-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        video {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
+        }
+
+        /* Indicador */
+        .tap-hint {
+            position: absolute;
+            bottom: 90px;
+            font-size: 0.8rem;
+            opacity: 0.5;
+            animation: pulse 2s infinite;
+            z-index: 5;
+        }
+
+        @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+
+        /* --- COPYRIGHT --- */
+        .copyright {
+            position: absolute;
+            bottom: 10px;
+            font-size: 0.7rem;
+            opacity: 0.4;
+            color: #888;
+            z-index: 5;
+        }
+
+        /* --- EFECTO DE ESCRITURA --- */
+        .typing-text::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+
+        /* --- FLASH --- */
+        .flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 50;
+            transition: opacity 0.3s;
+        }
+
+        /* --- MENSAJE MOTIVADOR ESPECIAL --- */
+        .motivational-text {
+            background: linear-gradient(45deg, #ff6b9d, #c44569, #ff6b9d);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease infinite;
+            font-weight: 600;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="flash" id="flash"></div>
+    <div id="particles"></div>
+
+    <!-- Contador de años (aparece temporalmente) -->
+    <div id="counter-box">
+        <div class="counter-text">
+            ⏰ Llevamos<br>
+            <span style="color: #ff6b9d; font-size: 1.2rem;">9 AÑOS</span><br>
+            siendo amigos<br>
+            <span style="font-size: 0.6rem; color: #888;">(si w yo veo el futuro)</span>
+        </div>
+    </div>
+
+    <div id="flower-container">
+        <svg viewBox="0 0 200 200" style="overflow:visible">
+            <path class="flower-path" d="M100,100 Q70,40 100,20 Q130,40 100,100" />
+            <path class="flower-path" d="M100,100 Q140,50 160,80 Q140,110 100,100" />
+            <path class="flower-path" d="M100,100 Q150,120 140,160 Q110,140 100,100" />
+            <path class="flower-path" d="M100,100 Q100,170 60,160 Q50,120 100,100" />
+            <path class="flower-path" d="M100,100 Q40,110 20,80 Q50,50 100,100" />
+            <path class="flower-path" d="M100,100 Q60,60 80,30 Q110,50 100,100" />
+            <path class="flower-path" d="M100,100 Q130,40 160,60 Q140,90 100,100" />
+            <path class="flower-path" d="M100,100 Q150,100 150,140 Q110,130 100,100" />
+            <path class="flower-path" d="M100,100 Q80,60 100,40 Q120,60 100,100" />
+            <path class="flower-path" d="M100,100 Q130,70 140,100 Q120,120 100,100" />
+            <path class="flower-path" d="M100,100 Q120,130 100,150 Q80,130 100,100" />
+            <path class="flower-path" d="M100,100 Q70,120 60,100 Q70,80 100,100" />
+            <circle class="flower-path" cx="100" cy="100" r="15" fill="none" />
+            <circle class="flower-path" cx="100" cy="100" r="8" fill="none" />
+            <path class="flower-path" d="M100,150 Q100,180 100,200" />
+            <path class="flower-path" d="M100,180 Q70,170 60,190 Q80,200 100,180" />
+            <path class="flower-path" d="M100,190 Q130,180 140,200 Q120,210 100,190" />
+        </svg>
+    </div>
+
+    <!-- Césped de Minecraft -->
+    <div id="minecraft-grass"></div>
+
+    <!-- Foto principal -->
+    <div style="position: relative; display: inline-block;">
+        <img id="popup-img" src="foto.jpg" alt="Sorpresa">
+        <div class="photo-shine"></div>
+    </div>
+
+    <!-- Foto bolas rodantes -->
+    <img id="bolas-img" src="bolas.jpg" alt="Bolas rodantes">
+
+    <div id="text-container">
+        <h1 id="main-text">Tocame... la pantalla :v</h1>
+    </div>
+
+    <div id="video-container">
+        <video id="final-video" src="video.mp4" controls></video>
+    </div>
+
+    <div class="tap-hint">(Toca la pantalla para continuar)</div>
+    
+    <div class="copyright">Copyright Alcohólicos Anónimos</div>
+
+    <script>
+        // --- CONFIGURACIÓN DE PASOS ---
+        const steps = [
+            { text: "HOLAAAAAAAAAA", size: "2rem", effect: "glow" },
+            { text: "Keloke t habla El papá de los helados 🍦", size: "1.8rem", action: "showCounter", sound: true },
+            { text: "<span class='minecraft-font'>Gracias por soportarme w 💔💔</span>", size: "1.5rem", action: "showImage", effect: "minecraft", vibrate: true },
+            { text: "Gracias por escucharme, por estar siempre ahí respondiendo cada mensaje aunque yo me pierda por dia y medio :'v", size: "1.2rem", action: "hideImage" },
+            { text: "Eres de las cosas más bonitas <br><span class='romantic-font'>pq alch si estás bien preciosa sabes?</span><br> que me ha pasado y de verdad t quiero mucho...", size: "1.5rem", effect: "romantic", action: "confetti" },
+            { text: "Mucho...", type: "grow1", size: "2rem", effect: "heartbeat", vibrate: true },
+            { text: "muchoooooooooo", type: "grow2", size: "3rem", effect: "heartbeat", vibrate: true },
+            { text: "<span class='motivational-text'>Vas a lograr todo lo que te propongas</span><br>pq se que puedes<br>pq eres una mujer muy fuerte y guerrera 💪<br><span style='font-size:0.8rem;opacity:0.7;'>(si yo fuera tenido el dolor de rodilla de ella por 2 semanas definitivamente pierdo la vida)</span>", size: "1.4rem", effect: "glow" },
+            { text: "Asi q ajá chamita :v<br><span class='bolas-text'>(igual t sigo cargando arrecherita por ganarme en las bolas rodantes 🥺)</span>", size: "1.8rem", action: "showBolas", vibrate: true },
+            { text: "FELIZ DIA DEL AMOOOR Y LA AMISTAAAAAAAAAAAD WAZAAAAAAAA👻👻👻👻", size: "2rem", action: "playVideo", effect: "typing", vibrate: true }
+        ];
+
+        let currentStep = -1;
+        const textContainer = document.getElementById('main-text');
+        const flowerPaths = document.querySelectorAll('.flower-path');
+        const popupImg = document.getElementById('popup-img');
+        const bolasImg = document.getElementById('bolas-img');
+        const videoContainer = document.getElementById('video-container');
+        const finalVideo = document.getElementById('final-video');
+        const counterBox = document.getElementById('counter-box');
+        const flash = document.getElementById('flash');
+        
+        // --- AUDIO ---
+        const bgMusic = new Audio('musica.mp3');
+        bgMusic.loop = true;
+        bgMusic.volume = 0.3;
+
+        const pathLengths = Array.from(flowerPaths).map(path => path.getTotalLength());
+        const totalLength = pathLengths.reduce((a, b) => a + b, 0);
+
+        flowerPaths.forEach((path, index) => {
+            path.style.strokeDasharray = pathLengths[index];
+            path.style.strokeDashoffset = pathLengths[index];
+        });
+
+        function createGrass() {
+            const grassContainer = document.getElementById('minecraft-grass');
+            const blockWidth = 40;
+            const numBlocks = Math.ceil(window.innerWidth / blockWidth) + 2;
+            
+            for (let i = 0; i < numBlocks; i++) {
+                const block = document.createElement('div');
+                block.className = 'grass-block';
+                block.style.left = (i * blockWidth - 20) + 'px';
+                const heightVar = Math.random() * 10;
+                block.style.height = (40 + heightVar) + 'px';
+                
+                const snow = document.createElement('div');
+                snow.className = 'snow-layer';
+                block.appendChild(snow);
+                
+                grassContainer.appendChild(block);
+            }
+        }
+        createGrass();
+
+        function createMCHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'mc-heart';
+            const x = Math.random() * window.innerWidth;
+            const duration = Math.random() * 3 + 3;
+            const size = Math.random() * 10 + 12;
+            
+            heart.style.left = x + 'px';
+            heart.style.bottom = '80px';
+            heart.style.width = size + 'px';
+            heart.style.height = size + 'px';
+            heart.style.animationDuration = duration + 's';
+            
+            const colors = ['#ff6b9d', '#ff8fab', '#55ff55', '#7fff7f'];
+            heart.style.background = colors[Math.floor(Math.random() * colors.length)];
+            
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), duration * 1000);
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'confetti-heart';
+                    heart.innerHTML = ['❤️', '💖', '💕', '💗', '💝'][Math.floor(Math.random() * 5)];
+                    heart.style.left = Math.random() * window.innerWidth + 'px';
+                    heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                    document.body.appendChild(heart);
+                    setTimeout(() => heart.remove(), 4000);
+                }, i * 100);
+            }
+        }
+
+        function triggerFlash() {
+            flash.style.opacity = '0.3';
+            setTimeout(() => flash.style.opacity = '0', 300);
+        }
+
+        function vibrate(pattern = 50) {
+            if (navigator.vibrate) navigator.vibrate(pattern);
+        }
+
+        function typeWriter(text, element, speed = 50) {
+            element.innerHTML = '';
+            element.classList.add('typing-text');
+            let i = 0;
+            
+            function type() {
+                if (i < text.length) {
+                    if (text.substring(i).startsWith('<')) {
+                        const endTag = text.indexOf('>', i);
+                        element.innerHTML += text.substring(i, endTag + 1);
+                        i = endTag + 1;
+                    } else {
+                        element.innerHTML += text.charAt(i);
+                        i++;
+                    }
+                    setTimeout(type, speed);
+                } else {
+                    element.classList.remove('typing-text');
+                }
+            }
+            type();
+        }
+
+        document.body.addEventListener('click', () => {
+            if(videoContainer.style.display === 'flex') return;
+
+            currentStep++;
+
+            if (currentStep < steps.length) {
+                const step = steps[currentStep];
+
+                // Iniciar música
+                if (step.sound && bgMusic.paused) {
+                    bgMusic.play().catch(e => console.log('Audio blocked:', e));
+                }
+
+                // Vibración
+                if (step.vibrate) {
+                    if (step.type === 'grow2') {
+                        vibrate([100, 50, 100]); // Vibración doble fuerte
+                    } else {
+                        vibrate(60);
+                    }
+                }
+
+                if (step.action === 'playVideo') {
+                    updateText(step);
+                    setTimeout(() => {
+                        document.getElementById('text-container').style.display = 'none';
+                        document.getElementById('flower-container').style.display = 'none';
+                        document.getElementById('minecraft-grass').style.display = 'none';
+                        popupImg.style.display = 'none';
+                        bolasImg.style.display = 'none';
+                        counterBox.style.display = 'none';
+                        document.querySelector('.copyright').style.display = 'none';
+                        document.querySelector('.tap-hint').style.display = 'none';
+                        
+                        videoContainer.style.display = 'flex';
+                        finalVideo.play();
+                    }, 5000);
+                    return;
+                }
+
+                if (step.action === 'showCounter') {
+                    counterBox.classList.add('show');
+                    setTimeout(() => {
+                        counterBox.classList.remove('show');
+                    }, 2000);
+                }
+
+                if (step.action === 'showImage') {
+                    popupImg.classList.add('show');
+                    triggerFlash();
+                } else if (step.action === 'hideImage') {
+                    popupImg.classList.remove('show');
+                }
+
+                if (step.action === 'showBolas') {
+                    bolasImg.classList.add('show');
+                    triggerFlash();
+                }
+
+                if (step.action === 'confetti') {
+                    createConfetti();
+                }
+
+                updateText(step);
+            }
+        });
+
+        function updateText(step) {
+            textContainer.style.opacity = 0;
+            
+            setTimeout(() => {
+                if (step.effect === 'typing') {
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = step.text;
+                    typeWriter(tempDiv.textContent, textContainer, 80);
+                } else {
+                    textContainer.innerHTML = step.text;
+                }
+                
+                textContainer.style.fontSize = step.size;
+                textContainer.style.opacity = 1;
+
+                textContainer.classList.remove('glow-text', 'big-text', 'grow-1', 'grow-2');
+                
+                if (step.effect === 'glow') textContainer.classList.add('glow-text');
+                if (step.type === 'grow1') textContainer.classList.add('big-text', 'grow-1');
+                if (step.type === 'grow2') textContainer.classList.add('big-text', 'grow-2');
+
+                const progress = (currentStep + 1) / steps.length;
+                const targetOffset = totalLength * (1 - progress);
+                
+                let accumulatedLength = 0;
+                flowerPaths.forEach((path, index) => {
+                    const pathLength = pathLengths[index];
+                    const pathStart = accumulatedLength;
+                    const pathEnd = accumulatedLength + pathLength;
+                    
+                    if (targetOffset <= pathStart) {
+                        path.style.strokeDashoffset = 0;
+                    } else if (targetOffset >= pathEnd) {
+                        path.style.strokeDashoffset = pathLength;
+                    } else {
+                        const partialProgress = (targetOffset - pathStart) / pathLength;
+                        path.style.strokeDashoffset = pathLength * (1 - partialProgress);
+                    }
+                    
+                    accumulatedLength += pathLength;
+                });
+
+            }, 200);
+        }
+
+        setInterval(createMCHeart, 800);
+
+    </script>
+</body>
+</html>
+
